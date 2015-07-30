@@ -9,7 +9,15 @@
 #   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
 
 module.exports = (robot) ->
-
+  robot.hear /achievement (get|unlock(ed)?) (.+?)(\s*[^@\s]+@[^@\s]+)?\s*$/i, (msg) ->
+    caption = msg.match[3]
+    email = msg.match[4] || msg.message.user.email_address
+    url = "http://achievement-unlocked.heroku.com/xbox/#{escape(caption)}.png"
+    if email
+      url += "?email=#{escape(email.trim())}.png"
+    msg.send(url)
+  robot.respond /who are the others?/i, (res) ->
+    res.reply 'I know Slack, he is a cool dude!'
   # robot.hear /badger/i, (res) ->
   #   res.send "Badgers? BADGERS? WE DON'T NEED NO STINKIN BADGERS"
   #
