@@ -10,7 +10,7 @@
 
 module.exports = (robot) ->
   robot.hear /achievement (get|unlock(ed)?) (.+?)(\s*[^@\s]+@[^@\s]+)?\s*$/i, (msg) ->
-    caption = msg.match[3]
+    caption = msg.match[3] # show
     url = "http://achievement-unlocked.heroku.com/xbox/#{escape(caption)}.png"
     msg.send(url)
   robot.respond /who are the others?/i, (res) ->
